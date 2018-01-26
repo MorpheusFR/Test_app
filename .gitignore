@@ -17,9 +17,7 @@
 !/log/.keep
 !/tmp/.keep
 
-/node_modules
-/yarn-error.log
-
+# Ignore Byebug command history file.
 .byebug_history
 
 database.yml
@@ -30,3 +28,6 @@ doc/
 .DS_Store
 .idea
 .secret
+
+# Ignore Spring files.
+/spring/*.pid

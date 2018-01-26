@@ -38,19 +38,18 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '~> 2.13'
+  gem 'capybara', '~> 2.13'
   # gem 'selenium-webdriver'
   # gem 'rspec-rails', '~> 3.7'
-  # gem 'guard-rspec', '~> 4.7'
+  gem 'guard-rspec', '~> 4.7'
   # gem 'libnotify', '~> 0.9.4'
-  # gem 'sqlite3'
-  # gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5'
-  gem 'spring',                '2.0.2'
+  gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
