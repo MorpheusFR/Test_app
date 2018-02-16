@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  follower: morpheus
+  followed: lana
+
+two:
+  follower: morpheus
+  followed: malory
+
+three:
+  follower: lana
+  followed: morpheus
+
+four:
+  follower: archer
+  followed: morpheus

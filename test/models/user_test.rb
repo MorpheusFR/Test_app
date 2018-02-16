@@ -87,4 +87,33 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "should follow and unfollow a user" do
+    morpheus = users(:morpheus)
+    archer  = users(:archer)
+    assert_not morpheus.following?(archer)
+    morpheus.follow(archer)
+    assert morpheus.following?(archer)
+    assert archer.followers.include?(morpheus)
+    morpheus.unfollow(archer)
+    assert_not morpheus.following?(archer)
+  end
+
+  test "feed should have the right posts" do
+    morpheus = users(:morpheus)
+    archer  = users(:archer)
+    lana    = users(:lana)
+    # Posts from followed user
+    lana.microposts.each do |post_following|
+      assert morpheus.feed.include?(post_following)
+    end
+    # Posts from self
+    morpheus.microposts.each do |post_self|
+      assert morpheus.feed.include?(post_self)
+    end
+    # Posts from unfollowed user
+    archer.microposts.each do |post_unfollowed|
+      assert_not morpheus.feed.include?(post_unfollowed)
+    end
+  end
 end
