@@ -37,8 +37,6 @@ class TodoListsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /todo_lists/1
-  # PATCH/PUT /todo_lists/1.json
   def update
     respond_to do |format|
       if @todo_list.update(todo_list_params)
@@ -51,8 +49,6 @@ class TodoListsController < ApplicationController
     end
   end
 
-  # DELETE /todo_lists/1
-  # DELETE /todo_lists/1.json
   def destroy
     @todo_list.destroy
     respond_to do |format|
