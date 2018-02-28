@@ -1,28 +1,22 @@
 class TodoListsController < ApplicationController
-  before_action :set_todo_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo_list,  only: [:show, :edit, :update, :destroy]
 
-  # GET /todo_lists
-  # GET /todo_lists.json
   def index
-    @todo_lists = TodoList.all
+    # @todo_lists = TodoList.all
+    @todo_item = TodoList.new
+    @todo_lists = current_user.todo_lists.order(:id)
   end
 
-  # GET /todo_lists/1
-  # GET /todo_lists/1.json
   def show
   end
 
-  # GET /todo_lists/new
   def new
     @todo_list = TodoList.new
   end
 
-  # GET /todo_lists/1/edit
   def edit
   end
 
-  # POST /todo_lists
-  # POST /todo_lists.json
   def create
     @todo_list = TodoList.new(todo_list_params)
 
@@ -58,13 +52,16 @@ class TodoListsController < ApplicationController
   end
 
   private
+    def have_access(todo_list)
+      return true if todo_list && (todo_list.user_id == current_user.id)
+      false
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_todo_list
       @todo_list = TodoList.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def todo_list_params
-      params.require(:todo_list).permit(:title, :description)
+      params.require(:todo_list).permit(:title, :description, :user_id)
     end
 end

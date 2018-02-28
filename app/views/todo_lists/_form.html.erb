@@ -1,10 +1,12 @@
-<%= form_with(model: todo_list, local: true) do |form| %>
-  <% if todo_list.errors.any? %>
+<% @user_id = current_user.id %>
+<!-- <%= form_with(model: todo_list, local: true) do |form| %> -->
+<%= form_for(@todo_list) do |form| %>
+  <% if @todo_list.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(todo_list.errors.count, "error") %> prohibited this todo_list from being saved:</h2>
+      <h2><%= pluralize(@todo_list.errors.count, "error") %> prohibited this todo_list from being saved:</h2>
 
       <ul>
-      <% todo_list.errors.full_messages.each do |message| %>
+      <% @todo_list.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -14,6 +16,7 @@
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title, id: :todo_list_title %>
+    <%= form.hidden_field :user_id, value: @user_id %>
   </div>
 
   <div class="field">
@@ -24,4 +27,5 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+<!-- <% end %> -->
 <% end %>

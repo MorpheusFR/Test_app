@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :todo_lists, dependent: :destroy
+  # has_many :todo_items, dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",

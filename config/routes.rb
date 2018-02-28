@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post    'login'     => 'sessions#create'
   delete  'logout'    => 'sessions#destroy'
 
+  get     'todolists' => 'todo_lists#index'
+
   resources :users do
     member do
       get :following, :followers
@@ -21,6 +23,8 @@ Rails.application.routes.draw do
     resources :todo_items do
       member do
         patch :complete
+        post 'priority_up'
+        post 'priority_down'
       end
     end
   end
