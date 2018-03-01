@@ -1,6 +1,10 @@
 class TodoItemsController < ApplicationController
   before_action :set_todo_list
-  before_action :set_todo_item, except: [:edit, :update, :destroy]
+  before_action :set_todo_item, except: [:create, :edit, :update, :destroy]
+
+  # def new
+	# 	@item = current_user.items.build
+  # end
 
   def create
 		@todo_item = @todo_list.todo_items.create(todo_item_params)
