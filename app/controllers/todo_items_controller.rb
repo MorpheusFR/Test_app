@@ -1,13 +1,20 @@
 class TodoItemsController < ApplicationController
   before_action :set_todo_list
-  before_action :set_todo_item, except: [:create, :edit, :update, :destroy]
+  before_action :set_todo_item, except: [:create, :edit, :update]
 
   # def new
 	# 	@item = current_user.items.build
   # end
 
   def create
-		@todo_item = @todo_list.todo_items.create(todo_item_params)
+    # @todo_item = @todo_list.todo_items.create(todo_item_params)
+    if current_user.todo_lists.find(set_todo_list.id).todo_items.count>0
+	    priority = current_user.todo_lists.find(set_todo_list.id).todo_items.maximum(:priority)+1
+	  else
+	    priority = 0
+    end
+    @todo_item = @todo_list.todo_items.create(todo_item_params)
+    @todo_item.update_attribute(:priority, priority)
 		redirect_to @todo_list
   end
 
@@ -32,6 +39,14 @@ class TodoItemsController < ApplicationController
       flash[:error] = "Todo List item coul not be deleted."
     end
     redirect_to @todo_list
+    # @t = @todo_list.todo_items.find_by(id: params[:id])
+	  # @t.destroy
+    #
+	  # @todo_lists = current_user.todo_lists.order(:id)
+	  #   respond_to do |format|
+    #     format.html {redirect_to todolists_path}
+    #     format.js {render action: 'script.js.erb'}
+    #   end
   end
 
   def complete
@@ -47,14 +62,14 @@ class TodoItemsController < ApplicationController
 
   private
     def set_todo_list
-  		@todo_list = TodoList.find(params[:todo_list_id])
-  	end
+      @todo_list = TodoList.find(params[:todo_list_id])
+    end
 
   	def set_todo_item
   		@todo_item = @todo_list.todo_items.find(params[:id])
   	end
 
-  	def todo_item_params
+    def todo_item_params
   		params[:todo_item].permit(:content)
     end
 end
