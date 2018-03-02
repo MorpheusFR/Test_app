@@ -55,9 +55,23 @@ class TodoItemsController < ApplicationController
   end
 
   def priority_up
+    @todo_list_cur=current_user.todo_lists.find(@todo_item.todo_list_id)
+    if @todo_item.priority != @todo_list_cur.todo_items.minimum(:priority)
+  	  @todo_item_to_change=@todo_list_cur.todo_items.find_by(priority: (@todo_item.priority-1))
+  	  @todo_item_to_change.priority += 1
+  	  @todo_item_to_change.save
+  	  @todo_item.priority -= 1
+      @todo_item.save
+      # @todo_lists = current_user.todo_lists.order(:id)
+	    # respond_to do |format|
+      #   format.html {redirect_to todolists_path}
+      #   format.js {render action: 'script.js.erb'}
+      # end
+    end
   end
 
   def priority_down
+
   end
 
   private
