@@ -3,10 +3,12 @@
   <p class="todo_list_sub_title"><%= @todo_list.description %></p>
 
 <div id="todo_items_wrapper">
-  <%= render @todo_list.todo_items %>
+
+  <%= render @todo_list.todo_items.order(:priority) %>
   <div id="form">
     <%= render "todo_items/form" %>
   </div>
+
 </div>
 <div class="links">
   <%= link_to 'Edit', edit_todo_list_path(@todo_list) %> |

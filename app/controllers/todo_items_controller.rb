@@ -1,6 +1,6 @@
 class TodoItemsController < ApplicationController
   before_action :set_todo_list
-  before_action :set_todo_item, except: [:create, :edit, :update]
+  before_action :set_todo_item, except: [:create]
 
   # def new
 	# 	@item = current_user.items.build
@@ -51,10 +51,12 @@ class TodoItemsController < ApplicationController
 
   def complete
     @todo_item.update_attribute(:completed_at, Time.now)
-    redirect_to @todo_list, notice: "Todo item complited"
+    redirect_to @todo_list #, notice: "Todo item complited"
   end
 
   def priority_up
+    # @todo_item.update_attribute(:priority, priority)
+    # redirect_to @todo_list
     @todo_list_cur=current_user.todo_lists.find(@todo_item.todo_list_id)
     if @todo_item.priority != @todo_list_cur.todo_items.minimum(:priority)
   	  @todo_item_to_change=@todo_list_cur.todo_items.find_by(priority: (@todo_item.priority-1))
@@ -62,6 +64,7 @@ class TodoItemsController < ApplicationController
   	  @todo_item_to_change.save
   	  @todo_item.priority -= 1
       @todo_item.save
+      redirect_to @todo_list
       # @todo_lists = current_user.todo_lists.order(:id)
 	    # respond_to do |format|
       #   format.html {redirect_to todolists_path}
@@ -71,7 +74,15 @@ class TodoItemsController < ApplicationController
   end
 
   def priority_down
-
+    @todo_list_cur=current_user.todo_lists.find(@todo_item.todo_list_id)
+    if @todo_item.priority != @todo_list_cur.todo_items.maximum(:priority)
+  	  @todo_item_to_change=@todo_list_cur.todo_items.find_by(priority: (@todo_item.priority+1))
+  	  @todo_item_to_change.priority -= 1
+  	  @todo_item_to_change.save
+  	  @todo_item.priority += 1
+      @todo_item.save
+      redirect_to @todo_list
+    end
   end
 
   private
