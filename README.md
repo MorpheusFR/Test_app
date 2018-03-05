@@ -16,7 +16,7 @@ For more information, see the
 
 Given tables:
 
-    tasks(id, content, todo_list_id, project_id, created_at, updated_at, priority)
+    todo_items (id, content, todo_list_id, created_at, updated_at, completed_at, priority)
     todo_lists (id, title, description, created_at, updated_at, user_id)
 
 Queries for:
