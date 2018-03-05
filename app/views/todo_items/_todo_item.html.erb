@@ -1,21 +1,21 @@
 <div class="row clearfix">
   <% if todo_item.completed? %>
     <div class="complete">
-      <%= link_to complete_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch do %>
-        <i style="opacity: 0.4;" class="fa fa-check"></i>
+      <%= link_to uncomplete_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch, data: { confirm: "Are you sure? Uncompleted" } do %>
+        <i style="opacity: 0.4;" class="fa fa-minus"></i>
       <% end %>
     </div>
     <div class="todo_item">
       <p style="opacity: 0.4;"><strike><%= todo_item.content %></strike></p>
     </div>
     <div class="trash">
-      <%= link_to priority_up_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch do %>
+      <%= link_to priority_up_todo_list_todo_item_path(@todo_list, todo_item.id, todo_item.priority), method: :post do %>
         <i style="opacity: 0.4;" class="fa fa-chevron-up"></i>
       <% end %>
-      <%= link_to priority_down_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch do %>
+      <%= link_to priority_down_todo_list_todo_item_path(@todo_list, todo_item.id, todo_item.priority), method: :post do %>
         <i style="opacity: 0.4;" class="fa fa-chevron-down"></i>
       <% end %>&nbsp
-      <%= link_to edit_todo_list_todo_item_path(@todo_list, todo_item.id), method: :edit do %>
+      <%= link_to edit_todo_list_todo_item_path(@todo_list, todo_item.id, todo_item.deadline) do %>
         <i style="opacity: 0.4;" class="fa fa-pencil-alt"></i>
       <% end %>&nbsp
       <%= link_to todo_list_todo_item_path(@todo_list, todo_item.id), method: :delete, data: { confirm: "Are you sure?" } do %>
@@ -30,7 +30,7 @@
           <i class="fa fa-check"></i>
         <% end %>
       </div>
-      <div class="todo_item">
+      <div class="todo_item" >
         <p><%= todo_item.content %></p>
       </div>
       <div class="trash">
@@ -40,7 +40,7 @@
         <%= link_to priority_down_todo_list_todo_item_path(@todo_list, todo_item.id, todo_item.priority), method: :post do %>
           <i class="fa fa-chevron-down"></i>
         <% end %>&nbsp
-        <%= link_to edit_todo_list_todo_item_path(@todo_list, todo_item) do %>
+        <%= link_to edit_todo_list_todo_item_path(@todo_list, todo_item, todo_item.deadline) do %>
           <i class="fa fa-pencil-alt"></i>
         <% end %>&nbsp
         <%= link_to todo_list_todo_item_path(@todo_list, todo_item.id), method: :delete, data: { confirm: "Are you sure?" } do %>
@@ -50,3 +50,18 @@
 
   <% end %>
 </div>
+<!-- <script>
+  $(document).ready(function(){
+    $("i").click( function(){
+      $(this).parent().find('#form').toggle();
+      $(this).parent().find('#edit-todo_list-form').toggle();
+      });
+
+    $("tr").hover( function(){
+      $(this).find("#icons").toggle();
+      });
+    $(".panel-heading").hover( function(){
+      $(this).find("#head_icons").toggle();
+      });
+  });
+</script> -->

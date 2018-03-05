@@ -5,6 +5,8 @@ class TodoItemsController < ApplicationController
   # def new
 	# 	@item = current_user.items.build
   # end
+  # def show
+  # end
 
   def create
     # @todo_item = @todo_list.todo_items.create(todo_item_params)
@@ -22,12 +24,17 @@ class TodoItemsController < ApplicationController
   end
 
   def update
+    # @todo_item.update_attribute(:completed_at, Time.now)
+    # deadline = @todo_item.deadline
     if @todo_item.update(todo_item_params)
+      # @todo_item = @todo_list.todo_items.create(todo_item_params)
+      # @todo_item_change = @todo_item.find(deadline: deadline)
+      # @todo_item_change.save
       redirect_to @todo_list
       # format.html { redirect_to @todo_item, notice: 'Task was successfully updated.' }
       # format.json { render :show, status: :ok, location: @todo_item }
     else
-      # flash[:error] = "Todo List item coul not be edited."
+      flash[:error] = "Todo List item coul not be edited."
       render 'edit'
     end
   end
@@ -54,10 +61,13 @@ class TodoItemsController < ApplicationController
     redirect_to @todo_list #, notice: "Todo item complited"
   end
 
+  def uncomplete
+    @todo_item.update_attribute(:completed_at, nil)
+    redirect_to @todo_list #, notice: "Todo item uncomplited"
+  end
+
   def priority_up
-    # @todo_item.update_attribute(:priority, priority)
-    # redirect_to @todo_list
-    @todo_list_cur=current_user.todo_lists.find(@todo_item.todo_list_id)
+    @todo_list_cur = current_user.todo_lists.find(@todo_item.todo_list_id)
     if @todo_item.priority != @todo_list_cur.todo_items.minimum(:priority)
   	  @todo_item_to_change=@todo_list_cur.todo_items.find_by(priority: (@todo_item.priority-1))
   	  @todo_item_to_change.priority += 1
@@ -95,6 +105,6 @@ class TodoItemsController < ApplicationController
   	end
 
     def todo_item_params
-  		params[:todo_item].permit(:content)
+  		params[:todo_item].permit(:content, :deadline, :completed_at)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223081208) do
+ActiveRecord::Schema.define(version: 20180305111724) do
 
   create_table "microposts", force: :cascade do |t|
     t.text "content"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180223081208) do
     t.datetime "updated_at", null: false
     t.datetime "completed_at"
     t.integer "priority", default: 0
+    t.datetime "deadline"
     t.index ["todo_list_id"], name: "index_todo_items_on_todo_list_id"
   end
 
