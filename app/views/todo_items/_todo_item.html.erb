@@ -1,5 +1,6 @@
 <div class="row clearfix">
   <% if todo_item.completed? %>
+    <div class="block-item" >
     <div class="complete">
       <%= link_to uncomplete_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch, data: { confirm: "Are you sure? Uncompleted" } do %>
         <i style="opacity: 0.4;" class="fa fa-minus"></i>
@@ -22,9 +23,9 @@
         <i style="opacity: 0.4;" class="fa fa-trash"></i>
       <% end %>
     </div>
-
+    </div>
   <% else %>
-
+    <div class="block-item" >
       <div class="complete">
         <%= link_to complete_todo_list_todo_item_path(@todo_list, todo_item.id), method: :patch do %>
           <i class="fa fa-check"></i>
@@ -47,7 +48,7 @@
           <i class="fa fa-trash"></i>
         <% end %>
       </div>
-
+    </div>
   <% end %>
 </div>
 <!-- <script>

@@ -14,12 +14,12 @@ User.create!(name:  "Example User",
              activated_at: Time.zone.now)
 
 User.create!(name:  "Morpheus",
-              email: "Creatorsk@gmail.com",
-              password:              "Qw123456",
-              password_confirmation: "Qw123456",
-              admin: true,
-              activated: true,
-              activated_at: Time.zone.now)
+             email: "Creatorsk@gmail.com",
+             password:              "Qw123456",
+             password_confirmation: "Qw123456",
+             admin: true,
+             activated: true,
+             activated_at: Time.zone.now)
 
 30.times do |n|
   name  = Faker::Name.name
